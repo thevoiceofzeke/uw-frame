@@ -85,4 +85,16 @@ define(['angular', 'require'], function(angular, require) {
     }
   });
 
+  app.directive('campusBalance', function() {
+    return {
+      restrict: 'E',
+      scope: {
+        widget: '=app',
+        config: '=config'
+      },
+      templateUrl: require.toUrl('./partials/type__campus-balance.html'),
+      controller: 'CampusBalanceController'
+    }
+  });
+
 });

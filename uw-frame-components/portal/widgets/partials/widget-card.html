@@ -54,6 +54,10 @@
         <weather-widget app="widget" config="widget.widgetConfig"></weather-widget>
       </div>
 
+      <div ng-switch-when="campus-balance">
+        <campus-balance app="widget" config="widget.widgetConfig"></campus-balance>
+      </div>
+
       <div ng-switch-when="custom" class="custom-widget">
         <div ng-controller="CustomWidgetController as customWidgetCtrl">
           <div ng-if="loading" layout="row" layout-align="center center">

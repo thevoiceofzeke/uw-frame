@@ -476,4 +476,9 @@ define(['angular'], function(angular) {
 
   }]);
 
+  // CAMPUS BALANCE type (i.e. "Wiscard")
+  app.controller('CampusBalanceController', ['$scope', '$log', 'widgetService', function($scope, $log, widgetService) {
+
+  }]);
+
 });
