@@ -1,0 +1,51 @@
+{
+  "entry": {
+    "canAdd": false,
+    "layoutObject": {
+      "nodeId": "-1",
+      "title": "Campus Balance",
+      "description": "See your campus balance, make a deposit, or request money.",
+      "url": "https://online.wiscard.wisc.edu/login.php?cid=120",
+      "iconUrl": null,
+      "faIcon": "fa-credit-card-alt",
+      "fname": "wiscard-balance",
+      "lifecycleState": "PUBLISHED",
+      "target": "_blank",
+      "widgetURL": "/web/api/proxy/wiscard",
+      "widgetType": "campus-balance",
+      "widgetConfig": {
+        "depositUrl": "https://online.wiscard.wisc.edu/login.php?wason=paymentach.php?tab=check",
+        "lostUrl": "https://online.wiscard.wisc.edu/login.php?wason=lost.php"
+      },
+      "staticContent": "\n        \n          <a href=\"https://online.wiscard.wisc.edu/login.php?cid=120\">Access your Wiscard account.</a>\n        \n      ",
+      "pithyStaticContent": null,
+      "altMaxUrl": true,
+      "renderOnWeb": false
+    },
+    "rating": 0.0,
+    "lifecycleState": "PUBLISHED",
+    "title": "Campus Balance",
+    "fname": "campus-balance",
+    "categories": [
+      "Applications"
+    ],
+    "portletWebAppName": "/SimpleContentPortlet",
+    "faIcon": "fa-credit-card-alt",
+    "maxUrl": "https://online.wiscard.wisc.edu/login.php?cid=120",
+    "shortUrl": null,
+    "renderUrl": "https://online.wiscard.wisc.edu/login.php?cid=120",
+    "portletName": "cms",
+    "keywords": [
+      "money",
+      "wisccard",
+      "wiscard",
+      "balance",
+      "deposit"
+    ],
+    "description": "See your campus balance, make a deposit, or request money.",
+    "name": "Campus Balance",
+    "id": "5996",
+    "type": "Portlet",
+    "target": "_blank"
+  }
+}

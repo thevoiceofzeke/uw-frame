@@ -5,7 +5,7 @@
     <span class="balance">{{ (content.data | filter: account=103)[0].balance | currency:"$":2 }}</span>
   </div>
   <div ng-if="isEmpty">
-    <circle-button data-href="{{ widget.widgetUrl }}"
+    <circle-button data-href="{{ widget.url }}"
                    data-target="_blank"
                    data-fa-icon="fa fa-credit-card-alt"
                    data-title="See balance">
@@ -26,7 +26,7 @@
     </circle-button>
   </div>
 </div>
-<launch-button data-href="{{ widget.widgetUrl }}"
+<launch-button data-href="{{ widget.url }}"
                data-target="_blank"
                data-rel="noopener noreferrer"
                data-button-text="{{ widget.widgetConfig.launchText ? widget.widgetConfig.launchText : 'Launch full app' }}"
