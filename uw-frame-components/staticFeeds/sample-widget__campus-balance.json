@@ -14,6 +14,7 @@
       "widgetURL": "/web/api/proxy/wiscard",
       "widgetType": "campus-balance",
       "widgetConfig": {
+        "launchText": "Manage my Card",
         "depositUrl": "https://online.wiscard.wisc.edu/login.php?wason=paymentach.php?tab=check",
         "lostUrl": "https://online.wiscard.wisc.edu/login.php?wason=lost.php"
       },
