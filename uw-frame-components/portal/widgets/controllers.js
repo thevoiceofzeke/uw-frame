@@ -478,6 +478,25 @@ define(['angular'], function(angular) {
 
   // CAMPUS BALANCE type (i.e. "Wiscard")
   app.controller('CampusBalanceController', ['$scope', '$log', 'widgetService', function($scope, $log, widgetService) {
+    $scope.isEmpty = true;
+
+    /**
+     * Get account balance from provided widgetUrl
+     */
+    var populateWidgetContent = function() {
+      widgetService.getWidgetJson($scope.widget)
+        .then(function(data) {
+          if (data) {
+            $scope.content = data;
+            $scope.isEmpty = false;
+          }
+        }).catch(function(error) {
+          $log.warn('Problem getting campus balance data');
+          $log.error(error);
+      });
+    };
+
+    populateWidgetContent();
 
   }]);
 
