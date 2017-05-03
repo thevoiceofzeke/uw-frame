@@ -595,8 +595,10 @@ define(['angular'], function (angular) {
       $scope.widgetPreviewCtrl = {
         widgetType: function (widget) {
           if (widget.type) {
+            console.log(widget.type);
             return widget.type;
           }
+          console.log('returning widget-creator as type');
           return 'widget-creator';
         },
       };
