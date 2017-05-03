@@ -29,7 +29,9 @@ define(['angular',
             when('/access-denied', main.accessDenied).
             when('/server-error', main.serverError).
             when('/sorry-safari', main.storageError).
+            when('/file-not-found', main.fileNotFound).
             when('/demo-widgets', widgets.demoWidgets).
+            when('/widget-creator', widgets.widgetCreator).
             when('/', main.main).
             otherwise('/');
     }]);

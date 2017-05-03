@@ -27,11 +27,12 @@
       <md-card flex-gt-sm="60" class="config" layout-padding>
         <md-card-title>
           <md-card-title-text>
-            <h1>Smart Widget Configuration</h1>
-            <p>Read <a
-              href="http://uw-madison-doit.github.io/angularjs-portal/widgets.html"
-              target="_blank" rel="noopener noreferrer">
-              the documentation on widgets</a>.
+            <span class="md-title">Smart Widget Configuration</span>
+            <p>Read
+              <a href="http://uw-madison-doit.github.io/angularjs-portal/widgets.html"
+                       target="_blank"
+                       rel="noopener noreferrer">the documentation on widgets
+              </a>.
             </p>
           </md-card-title-text>
         </md-card-title>
@@ -50,17 +51,17 @@
             </div>
             <md-input-container class="md-block md-accent">
               <label for="title">Title</label>
-              <input type="input" id="title" placeholder="Enter title" ng-model="storage.portlet.title">
+              <input type="input" id="title" placeholder="Enter title" ng-model="storage.widget.title">
             </md-input-container>
             <md-input-container class="md-block md-accent">
               <label for="desc">Description</label>
-              <input type="input" id="desc"placeholder="Enter description" ng-model="storage.portlet.description">
+              <input type="input" id="desc"placeholder="Enter description" ng-model="storage.widget.description">
             </md-input-container>
-            <md-input-container class="md-block md-accent" ng-if="portlet.type === 'WIDGET_CREATOR'">
+            <md-input-container class="md-block md-accent" ng-if="widget.type === 'widget-creator'">
               <label for="template">HTML template *</label>
-              <textarea ng-model="storage.portlet.widgetTemplate" id='template' rows="5" md-select-on-focus></textarea>
+              <textarea ng-model="storage.widget.widgetTemplate" id='template' rows="5" md-select-on-focus></textarea>
             </md-input-container>
-            <md-input-container class="md-block md-accent" ng-if='portlet.jsonSample'>
+            <md-input-container class="md-block md-accent" ng-if='widget.jsonSample'>
               <label for="content">Widget URL JSON sample * **<span style='color : red;'>{{errorJSON}}</span></label>
               <textarea ng-model="storage.content" id='content' rows="5" md-select-on-focus></textarea>
             </md-input-container>
@@ -68,9 +69,9 @@
               <label for="config">Widget configuration * ***<span style='color : red;'>{{errorConfigJSON}}</span></label>
               <textarea ng-model="storage.widgetConfig" id='config' rows="5" md-select-on-focus></textarea>
             </md-input-container>
-            <md-input-container class="md-block md-accent" ng-if='portlet.hasWidgetURL'>
+            <md-input-container class="md-block md-accent" ng-if='widget.hasWidgetURL'>
               <label for="widgetURL">Widget URL *</label>
-              <input type='URL' ng-model="storage.portlet.widgetURL" id='widgetURL'></textarea>
+              <input type='URL' ng-model="storage.widget.widgetURL" id='widgetURL'></textarea>
             </md-input-container>
           </form>
           <div class="config" layout="row" layout-align="start center">
@@ -80,14 +81,14 @@
           <div class="help-notes" layout="column" layout-padding>
             <p>* Changes to these fields requires you to click the refresh button to see the changes in the preview</p>
             <p>** This is normally result from the widgetURL. This result is dumped into the '$scope.content' variable.</p>
-            <p>*** Valid JSON that gets stored in '$scope.portlet.widgetConfig'</p>
+            <p>*** Valid JSON that gets stored in '$scope.widget.widgetConfig'</p>
           </div>
         </md-card-content>
       </md-card>
       <!-- WIDGET PREVIEW -->
       <div flex-gt-sm="40">
         <div class="list-container no-padding output" layout="row" layout-align="center center">
-          <widget-card></widget-card>
+          <widget-creator-preview></widget-creator-preview>
         </div>
         <div class='config' layout="row" layout-align="center center">
           <md-button class='md-accent md-raised' ng-click='clear()'>Clear</md-button>

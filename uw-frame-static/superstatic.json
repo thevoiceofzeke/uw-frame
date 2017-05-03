@@ -6,6 +6,8 @@
     {"source":"/features", "destination" : "index.html"},
     {"source":"/about", "destination" : "index.html"},
     {"source":"/server-error", "destination" : "index.html"},
+    {"source":"/file-not-found", "destination" : "index.html"},
+    {"source":"/widget-creator", "destination" : "index.html"},
     {"source":"/access-denied", "destination" : "index.html"},
     {"source":"/web", "destination" : "index.html"},
     {"source":"/portal/web/*", "destination" : "/staticFeeds/emptyArray.json"},

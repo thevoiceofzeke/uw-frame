@@ -12,13 +12,25 @@ define(['angular', 'require'], function(angular, require) {
       restrict: 'E',
       transclude: true,
       scope: {
-        fname: '@'
+        fname: '@',
       },
       templateUrl: require.toUrl('./partials/widget-card.html'),
       controller: 'WidgetCardController'
     };
   });
-  
+
+  /**
+   * Widget card for use with the widget creator
+   */
+  app.directive('widgetCreatorPreview', function() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      templateUrl: require.toUrl('./partials/widget-card.html'),
+      controller: 'WidgetCreatorController'
+    }
+  });
+
   /**
   Just the widget card -- gets the widget type from the scope
   **/

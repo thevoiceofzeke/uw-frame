@@ -63,6 +63,15 @@
         </div>
       </div>
 
+      <div ng-switch-when="widget-creator">
+        <div ng-controller="widgetPreviewCtrl">
+          <div ng-if="loading" layout="row" layout-align="center center">
+            <loading-gif data-object="content" data-empty="isEmpty"></loading-gif>
+          </div>
+          <content-item ng-if="!loading"></content-item>
+        </div>
+      </div>
+
       <div ng-switch-when="basic">
         <a tabindex="-1" ng-href="{{ renderUrl() }}" target="{{ widget.target ? widget.target : '_self' }}" class="basic-widget" rel="noopener noreferrer">
           <div class="widget-icon-container" layout="column" layout-align="center center">

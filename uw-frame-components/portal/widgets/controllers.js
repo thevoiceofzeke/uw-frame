@@ -1,14 +1,12 @@
 'use strict';
 
-define(['angular'], function(angular) {
+define(['angular'], function (angular) {
 
   var app = angular.module('portal.widgets.controllers', []);
 
-  /**
-   * Base widget controller (for /partials/widget-card.html). First point of access for all widget types -- determines
-   * the type and sets launch button url for un-typed (basic) widgets.
-   */
-  app.controller('WidgetCardController', ['$scope', '$log', '$localStorage', 'widgetService', function($scope, $log, $localStorage, widgetService) {
+  // Base widget controller (for /partials/widget-card.html). First point of access for all widget types -- determines
+  // the type and sets launch button url for un-typed (basic) widgets.
+  app.controller('WidgetCardController', ['$scope', '$log', '$localStorage', 'widgetService', function ($scope, $log, $localStorage, widgetService) {
     /**
      * Check for widget types that require extra configuration (including null/undefined case), default to provided
      * widget type.
@@ -17,7 +15,7 @@ define(['angular'], function(angular) {
      */
     var widgetType = function widgetType(widget) {
       // Check for types that need handling
-      switch(widget.widgetType) {
+      switch (widget.widgetType) {
         case 'list-of-links':
           // If the list of links only has one link and it's the same as the launch button url, display a basic widget
           if (widget.widgetConfig.links.length === 1 && widget.altMaxUrl && widget.widgetConfig.links[0].href === widget.url) {
@@ -39,21 +37,21 @@ define(['angular'], function(angular) {
     /**
      * Initial widget setup -- gets data for a single widget from the provided fname attribute
      */
-    var initializeWidget = function(fname) {
+    var initializeWidget = function (fname) {
       // Initialize scope variables
       $scope.widget = {};
       $scope.widgetType = '';
 
       // Get widget data for provided app (fname)
       widgetService.getSingleWidgetData(fname)
-        .then(function(data) {
+        .then(function (data) {
           // Set scope variables
           if (data) {
             $scope.widget = data;
             $scope.widgetType = widgetType(data);
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           $log.warn('WidgetCardController couldn\'t get data for: ' + fname);
           $log.error(error);
         });
@@ -88,11 +86,11 @@ define(['angular'], function(angular) {
   }]);
 
   // OPTION LINK widget type
-  app.controller('OptionLinkController', ['$scope', '$log', 'widgetService', function($scope, $log, widgetService) {
+  app.controller('OptionLinkController', ['$scope', '$log', 'widgetService', function ($scope, $log, widgetService) {
     /**
      * Set up default configuration if no config exists
      */
-    var configInit = function() {
+    var configInit = function () {
       $scope.config = {
         singleElement: false,
         arrayName: 'array',
@@ -104,12 +102,12 @@ define(['angular'], function(angular) {
     /**
      * Fetch additional widget data
      */
-    var populateWidgetContent = function() {
+    var populateWidgetContent = function () {
       if ($scope.widget.widgetURL && $scope.widget.widgetType) {
         // Initialize widget data
         $scope.widget.widgetData = [];
         // Get data and set widget content
-        widgetService.getWidgetJson($scope.widget).then(function(data) {
+        widgetService.getWidgetJson($scope.widget).then(function (data) {
           if (data) {
             if ($scope.config.singleElement) {
               // Set the default selected url
@@ -135,19 +133,19 @@ define(['angular'], function(angular) {
   }]);
 
   // SEARCH WITH LINKS widget type
-  app.controller('SearchWithLinksController', ['$scope', '$sce', function($scope, $sce) {
+  app.controller('SearchWithLinksController', ['$scope', '$sce', function ($scope, $sce) {
     // Have faith our entity files aren't trying to bamboozle us
     $scope.secureURL = $sce.trustAsResourceUrl($scope.config.actionURL);
   }]);
 
   // RSS widget type
-  app.controller('RssWidgetController', ['$scope', '$log', 'widgetService', function($scope, $log, widgetService) {
+  app.controller('RssWidgetController', ['$scope', '$log', 'widgetService', function ($scope, $log, widgetService) {
     /**
      * Turn the provided date string into an actual Date so it can be filtered into something prettier.
      * @param dateString A hideously ugly date string
      * @returns {*} A Date object or null
      */
-    $scope.getPrettyDate = function(dateString) {
+    $scope.getPrettyDate = function (dateString) {
       // Create a new date if a date string was provided, otherwise return null
       return dateString ? new Date(dateString) : null;
     };
@@ -157,14 +155,14 @@ define(['angular'], function(angular) {
      * @param title The RSS title
      * @returns String The trimmed title
      */
-    $scope.trim = function(title) {
+    $scope.trim = function (title) {
       return title.trim();
     };
 
     /**
      * Set defaults if any values are missing from provided widgetConfig
      */
-    var checkForWidgetConfig = function() {
+    var checkForWidgetConfig = function () {
       if (!$scope.config) {
         $scope.config = {};
       }
@@ -193,7 +191,7 @@ define(['angular'], function(angular) {
     /**
      * Initialize rss widget
      */
-    var initializeRssWidget = function() {
+    var initializeRssWidget = function () {
       // Trigger loading spinner
       $scope.loading = true;
 
@@ -205,7 +203,7 @@ define(['angular'], function(angular) {
 
         // Get rss feed from provided url
         widgetService.getRssAsJson($scope.widget.widgetURL)
-          .then(function(result) {
+          .then(function (result) {
             // If we got data, load it and turn off loading spinner
             $scope.data = result;
             $scope.loading = false;
@@ -227,7 +225,7 @@ define(['angular'], function(angular) {
               }
             }
           })
-          .catch(function(error) {
+          .catch(function (error) {
             // If the service couldn't get data, display error messages
             $log.warn('Couldn\'t get rss as JSON');
             $log.error(error);
@@ -245,17 +243,17 @@ define(['angular'], function(angular) {
 
 
   // CUSTOM & GENERIC widget types
-  app.controller('CustomWidgetController', ['$scope', '$log', 'widgetService', function($scope, $log, widgetService) {
+  app.controller('CustomWidgetController', ['$scope', '$log', 'widgetService', function ($scope, $log, widgetService) {
     /**
      * Fetch additional widget data
      */
-    var populateWidgetContent = function() {
+    var populateWidgetContent = function () {
       if ($scope.widget.widgetURL && $scope.widget.widgetType) {
         // Trigger loading spinner
         $scope.loading = true;
 
         // Fetch additional widget data
-        widgetService.getWidgetJson($scope.widget).then(function(data) {
+        widgetService.getWidgetJson($scope.widget).then(function (data) {
           $scope.loading = false;
           if (data) {
             $scope.widget.widgetData = data;
@@ -269,7 +267,7 @@ define(['angular'], function(angular) {
             $log.warn('Got nothing back from widget fetch from: ' + $scope.widget.widgetURL);
             $scope.isEmpty = true;
           }
-        }, function() {
+        }, function () {
           // After we get widget data, turn off loading spinner
           $scope.loading = false;
         });
@@ -284,9 +282,9 @@ define(['angular'], function(angular) {
      * @param {Array<String>} strings The string values to test against each entry
      * @returns {Array<Object>} An array containing only the desired
      */
-    $scope.filteredArray = function(array, object, strings) {
+    $scope.filteredArray = function (array, object, strings) {
       if (array && object && strings) {
-        return array.filter(function(entry) {
+        return array.filter(function (entry) {
           for (var i = 0; i < strings.length; i++) {
             if (entry[object].indexOf(strings[i]) != -1) {
               return true;
@@ -302,7 +300,7 @@ define(['angular'], function(angular) {
      * Initialize scope variables before getting widget content
      * @param template The provided custom HTML template
      */
-    var initializeCustomWidget = function(template) {
+    var initializeCustomWidget = function (template) {
       $scope.content = [];
       $scope.template = template;
       $scope.isEmpty = false;
@@ -321,19 +319,19 @@ define(['angular'], function(angular) {
   }]);
 
   // WEATHER widget type
-  app.controller('WeatherWidgetController', ['$scope', '$log', '$q', 'widgetService', 'keyValueService', function($scope, $log, $q, widgetService, keyValueService) {
+  app.controller('WeatherWidgetController', ['$scope', '$log', '$q', 'widgetService', 'keyValueService', function ($scope, $log, $q, widgetService, keyValueService) {
     // Local variables
     var fetchKey = 'userWeatherPreference';
 
     /**
      * Change temperature unit of measurement
      */
-    $scope.cycleUnits = function() {
+    $scope.cycleUnits = function () {
       var userPreference = $scope.nextUnits;
       var value = {};
 
       // Switch temperature based on which unit is next
-      switch(userPreference) {
+      switch (userPreference) {
         case 'F':
           convertKelvinToFahrenheit();
           $scope.currentUnits = 'F';
@@ -365,13 +363,13 @@ define(['angular'], function(angular) {
     /**
      * Fetch additional widget data
      */
-    var populateWidgetContent = function() {
+    var populateWidgetContent = function () {
       // Declare asynchronous promises to be executed in $q.all()
       var widgetPromise = widgetService.getWidgetJson($scope.widget);
       var userPreferencesPromise = keyValueService.getValue(fetchKey);
 
       // Execute promises, then resolve when both have returned something
-      $q.all( [widgetPromise, userPreferencesPromise] ).then(function(data) {
+      $q.all([widgetPromise, userPreferencesPromise]).then(function (data) {
 
         // Turn off loading spinner
         $scope.loading = false;
@@ -407,7 +405,7 @@ define(['angular'], function(angular) {
 
         // Return to resolve $q.all()
         return data;
-      }).catch(function() {
+      }).catch(function () {
         $scope.loading = false;
         $scope.error = true;
         $log.warn('WeatherWidgetController wrote a check it simply couldn\'t cash');
@@ -417,7 +415,7 @@ define(['angular'], function(angular) {
     /**
      * Convert from Fahrenheit to Celsius
      */
-    var convertFahrenheitToCelsius = function() {
+    var convertFahrenheitToCelsius = function () {
       var ratio = (5 / 9);
       var offset = 32;
       for (var i = 0; i < $scope.weatherData.length; i++) {
@@ -438,7 +436,7 @@ define(['angular'], function(angular) {
     /**
      * Convert from Celsius to Fahrenheit
      */
-    var convertCelsiusToFahrenheit = function() {
+    var convertCelsiusToFahrenheit = function () {
       var ratio = (9 / 5);
       var offset = 32;
       for (var i = 0; i < $scope.weatherData.length; i++) {
@@ -460,7 +458,7 @@ define(['angular'], function(angular) {
     /**
      * Convert from Celsius to Kelvin
      */
-    var convertCelsiusToKelvin = function() {
+    var convertCelsiusToKelvin = function () {
       var offset = 273;
       for (var i = 0; i < $scope.weatherData.length; i++) {
         $scope.weatherData[i].currentWeather.temperature =
@@ -478,7 +476,7 @@ define(['angular'], function(angular) {
     /**
      * Convert from Kelvin to Fahrenheit (via Celsius)
      */
-    var convertKelvinToFahrenheit = function() {
+    var convertKelvinToFahrenheit = function () {
       convertKelvinToCelsius();
       convertCelsiusToFahrenheit();
     };
@@ -486,7 +484,7 @@ define(['angular'], function(angular) {
     /**
      * Convert from Kelvin to Celsius
      */
-    var convertKelvinToCelsius = function() {
+    var convertKelvinToCelsius = function () {
       var offset = 273;
       for (var i = 0; i < $scope.weatherData.length; i++) {
         $scope.weatherData[i].currentWeather.temperature =
@@ -513,6 +511,197 @@ define(['angular'], function(angular) {
       $log.warn('WeatherWidgetController did not receive a widgetURL');
     }
 
+  }]);
+
+  // WIDGET CREATOR controller
+  app.controller('WidgetCreatorController', ['$scope', '$route', '$localStorage', function ($scope, $route, $localStorage) {
+    // SCOPE FUNCTIONS
+
+    // Reload widget preview
+    $scope.reload = function () {
+      $route.reload();
+    };
+
+    // Clear widget configuration
+    $scope.clear = function () {
+      if (confirm('Are you sure, all your config will be cleared')) {
+        init();
+        $route.reload();
+      }
+    };
+
+    // Change to newly-selected template type
+    $scope.changeTemplate = function () {
+      $scope.storage.content = $scope.storage.starterTemplate.contentIsJSON ? JSON.stringify($scope.storage.starterTemplate.content) : $scope.storage.starterTemplate.content;
+
+      $scope.storage.widget = $scope.storage.starterTemplate;
+
+      $scope.storage.widgetConfig = JSON.stringify($scope.storage.starterTemplate.widgetConfig);
+
+      $scope.reload();
+    };
+
+    // LOCAL FUNCTIONS
+
+    // Test for valid JSON
+    var validJSON = function isValidJson(json) {
+      try {
+        JSON.parse(json);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    };
+
+    // Set defaults and flag inited true
+    var configureDefaults = function () {
+      $scope.storage.isEmpty = false;
+      $scope.storage.widget = $scope.storage.starterTemplates[0];
+      $scope.storage.inited = true;
+      $scope.widget = $scope.storage.widget;
+    };
+
+    // Get widget configuration from scope.storage and display in preview
+    var configureDefaultsFromStorage = function () {
+      $scope.widget = $scope.storage.widget;
+      $scope.isEmpty = $scope.storage.isEmpty;
+      if ($scope.storage.content && validJSON($scope.storage.content)) {
+        $scope.content = JSON.parse($scope.storage.content);
+        $scope.isEmpty = $scope.storage.evalString ?
+          eval($scope.storage.evalString) : false;
+      } else {
+        $scope.content = {};
+        $scope.isEmpty = true;
+        $scope.errorJSON = $scope.storage.content ? 'JSON NOT VALID' : '';
+      }
+      if ($scope.storage.widgetConfig && validJSON($scope.storage.widgetConfig)) {
+        $scope.widget.widgetConfig = JSON.parse($scope.storage.widgetConfig);
+      } else {
+        $scope.errorConfigJSON = $scope.storage.widgetConfig ? 'JSON NOT VALID' : '';
+      }
+
+      $scope.template = $scope.widget.widgetTemplate;
+    };
+
+    /**
+     * Initialize widget creator configuration and preview
+     */
+    var init = function () {
+      $localStorage.widgetCreator = $localStorage.widgetCreator || {};
+      // Makes the widget creator stuff contained
+      $scope.storage = $localStorage.widgetCreator;
+
+      // Mock the widget controller
+      $scope.widgetPreviewCtrl = {
+        widgetType: function (widget) {
+          if (widget.type) {
+            return widget.type;
+          }
+          return 'widget-creator';
+        },
+      };
+      // Define default templates
+      $scope.storage.starterTemplates = [
+        {
+          id: 4,
+          type: 'widget-creator',
+          title: 'Custom',
+          hasWidgetURL: false,
+          description: 'This super cool portlet can change lives.',
+          widgetConfig: {},
+          jsonSample: {},
+          url: 'www.example.com',
+        },
+        {
+          id: 1,
+          type: 'search-with-links',
+          widgetType: 'search-with-links',
+          title: 'Search with Links',
+          jsonSample: false,
+          url: 'www.example.com',
+          widgetConfig: {
+            'actionURL': 'https://rprg.wisc.edu/search/',
+            'actionTarget': '_blank',
+            'actionParameter': 'q',
+            'launchText': 'Go to resource guide',
+            'links': [
+              {
+                'title': 'Get started',
+                'href': 'https://rprg.wisc.edu/phases/initiate/',
+                'icon': 'fa-map-o',
+                'target': '_blank',
+                'rel': 'noopener noreferrer',
+              },
+              {
+                'title': 'Resources',
+                'href': 'https://rprg.wisc.edu/category/resource/',
+                'icon': 'fa-th-list',
+                'target': '_blank',
+                'rel': 'noopener noreferrer',
+              },
+            ],
+          },
+          hasWidgetURL: false,
+        },
+        {
+          id: 2,
+          url: 'www.example.com',
+          type: 'rss',
+          widgetType: 'rss',
+          title: 'RSS Widget',
+          jsonSample: false,
+          widgetConfig: {
+            lim: 6,
+            target: '',
+            showdate: true,
+            titleLim: 40,
+            dateFormat: 'MM-dd-yyyy',
+            showShowing: true,
+          },
+          hasWidgetURL: true,
+          widgetURL: '',
+        },
+        {
+          id: 3,
+          url: 'www.example.com',
+          type: 'list-of-links',
+          title: 'List of Links',
+          jsonSample: false,
+          hasWidgetURL: false,
+          widgetConfig: {
+            'launchText': 'Launch the Full App',
+            'additionalText': 'Additional Text',
+            'links': [
+              {
+                'title': 'The Google',
+                'href': 'http://www.google.com',
+                'icon': 'fa-google',
+                'target': '_blank',
+                'rel': 'noopener noreferrer',
+              },
+              {
+                'title': 'Bing',
+                'href': 'http://www.bing.com',
+                'icon': 'fa-bed',
+                'target': '_blank',
+                'rel': 'noopener noreferrer',
+              },
+            ],
+          },
+          description: 'A simple list of links',
+        },
+      ];
+
+      // Make sure view is initialized
+      if (!$scope.storage.inited) {
+        configureDefaults();
+        configureDefaultsFromStorage();
+      } else {
+        configureDefaultsFromStorage();
+      }
+    };
+
+    init();
   }]);
 
 });
