@@ -182,25 +182,32 @@ define(['angular'], function(angular) {
          * @returns {*}
          */
         var getSeenMessageIds = function() {
+          $log.log('Inside getSeenMessageIds');
           // If K/V store isn't turned on, don't proceed
           if (!keyValueService.isKVStoreActivated()) {
+            $log.log('K/V store is not turned on');
             return $q.resolve([]);
           }
           // If sessionStorage already has values, return them
           if ($sessionStorage.seenMessageIds) {
+            $log.log('sessionStorage has seenMessageIds',
+              $sessionStorage.seenMessageIds);
             return $q.resolve($sessionStorage.seenMessageIds);
           }
+
           return keyValueService.getValue(KV_KEYS.VIEWED_MESSAGE_IDS)
             .then(function(result) {
+              $log.log('Called k/v service getValue');
               if (result && angular.isArray(result)) {
                 $sessionStorage.seenMessageIds = result;
+                $log.log('It\'s an array...returning: ',
+                  $sessionStorage.seenMessageIds);
                 return $sessionStorage.seenMessageIds;
               }
-              return result;
+              return $q.reject(result);
             })
             .catch(function(error) {
-              $log.error('Could not get seen message IDs');
-              $log.error(error);
+              $log.log('Could not get seen message IDs');
               return [];
             });
         };

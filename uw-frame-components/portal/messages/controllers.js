@@ -160,6 +160,7 @@ define(['angular'], function(angular) {
           if ($scope.$parent.messages.notifications) {
             allNotifications = $scope.$parent.messages.notifications;
             // Get seen message IDs, then configure scope
+            $log.log('Calling q.all on promiseSeenMessageIds');
             $q.all(promiseSeenMessageIds)
               .then(getSeenMessageIdsSuccess)
               .catch(getSeenMessageIdsFailure);
@@ -171,8 +172,10 @@ define(['angular'], function(angular) {
          * @param result
          */
         var getSeenMessageIdsSuccess = function(result) {
+          $log.log('Inside getSeenMessageIdsSuccess...got back: ', result);
           if (result.seenMessageIds && angular.isArray(result.seenMessageIds)
             && result.seenMessageIds.length > 0) {
+            $log.log('Should not see this');
             // Separate seen and unseen
             separatedNotifications = $filter('filterSeenAndUnseen')(
               allNotifications,
