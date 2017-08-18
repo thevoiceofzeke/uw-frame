@@ -160,7 +160,6 @@ define(['angular'], function(angular) {
           if ($scope.$parent.messages.notifications) {
             allNotifications = $scope.$parent.messages.notifications;
             // Get seen message IDs, then configure scope
-            $log.log('Calling q.all on promiseSeenMessageIds');
             $q.all(promiseSeenMessageIds)
               .then(getSeenMessageIdsSuccess)
               .catch(getSeenMessageIdsFailure);
@@ -172,10 +171,8 @@ define(['angular'], function(angular) {
          * @param result
          */
         var getSeenMessageIdsSuccess = function(result) {
-          $log.log('Inside getSeenMessageIdsSuccess...got back: ', result);
           if (result.seenMessageIds && angular.isArray(result.seenMessageIds)
             && result.seenMessageIds.length > 0) {
-            $log.log('Should not see this');
             // Separate seen and unseen
             separatedNotifications = $filter('filterSeenAndUnseen')(
               allNotifications,
@@ -275,7 +272,15 @@ define(['angular'], function(angular) {
 
           // Call service to save changes if k/v store enabled
           if (SERVICE_LOC.kvURL) {
-            messagesService.setMessagesSeen(dismissedNotificationIds);
+            messagesService.setMessagesSeen(dismissedNotificationIds)
+              .then(function(result) {
+                $log.log('[Dismiss Notification]: '
+                  + 'Successfully set messages seen:', result);
+                return result;
+              })
+              .catch(function() {
+                return 'oh no';
+              });
           }
 
           // Clear priority notification flags if it was a priority
@@ -307,7 +312,15 @@ define(['angular'], function(angular) {
           }
           // Call service to save changes if k/v store enabled
           if (SERVICE_LOC.kvURL) {
-            messagesService.setMessagesSeen(dismissedNotificationIds);
+            messagesService.setMessagesSeen(dismissedNotificationIds)
+              .then(function(result) {
+                $log.log('[Restore Notification]: '
+                  + 'Successfully set messages seen:', result);
+                return result;
+              })
+              .catch(function() {
+                return 'oh no';
+              });
           }
         };
 
