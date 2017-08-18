@@ -228,9 +228,10 @@ define(['angular'], function(angular) {
               + 'FEWER values than original');
             // If original array has values no longer present
             // in updated array, remove them
-            angular.forEach(originalSeenIds, function(id) {
+            //
+            angular.forEach(originalSeenIds, function(id, index) {
               if (alteredSeenIds.indexOf(id) == -1) {
-                originalSeenIds.splice(id, 1);
+                originalSeenIds.splice(index, 1);
               }
             });
           } else if (action === 'dismiss') {
