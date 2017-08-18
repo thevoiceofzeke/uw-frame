@@ -186,16 +186,11 @@ define(['angular'], function(angular) {
           if (!keyValueService.isKVStoreActivated()) {
             return $q.resolve([]);
           }
-          // If sessionStorage already has values, return them
-          if ($sessionStorage.seenMessageIds) {
-            return $q.resolve($sessionStorage.seenMessageIds);
-          }
 
           return keyValueService.getValue(KV_KEYS.VIEWED_MESSAGE_IDS)
             .then(function(result) {
               if (result && angular.isArray(result)) {
-                $sessionStorage.seenMessageIds = result;
-                return $sessionStorage.seenMessageIds;
+                return result;
               }
               return $q.reject(result);
             })
@@ -206,38 +201,59 @@ define(['angular'], function(angular) {
 
         /**
          * Set list of seen IDs in K/V store and session storage
-         * @param ids
+         * @param originalSeenIds The ids when the controller initialized
+         * @param alteredSeenIds The ids following action in the controller
+         * @param action The action to take (restore or dismiss)
          * @returns {*}
          */
-        var setMessagesSeen = function(ids) {
+        var setMessagesSeen = function(originalSeenIds,
+                                       alteredSeenIds,
+                                       action) {
           $log.log('[Set Messages Seen]: inside setMessagesSeen '
-            + 'with received ids', ids);
-          var seenIds = [];
+            + 'with original ids', originalSeenIds);
+          $log.log('[Set Messages Seen]: inside setMessagesSeen '
+            + 'with updated ids', alteredSeenIds);
           // If K/V store isn't activated, don't proceed
           if (!keyValueService.isKVStoreActivated()) {
             $log.log('this should fire in local dev');
             return $q.resolve($sessionStorage.seenMessageIds);
           }
-          if ($sessionStorage.seenMessageIds) {
-            // If 'getSeenMessageIds' has ever been called,
-            // this block should fire
-            seenIds = $sessionStorage.seenMessageIds;
-            $log.log('[Set Messages Seen]: setting seenIds from '
-              + 'sessionStorage', ids);
+
+          // Update stored IDs based on the action taken
+          if (action === 'restore') {
+            $log.log('action is restore');
+            $log.log('original:', originalSeenIds);
+            $log.log('altered:', alteredSeenIds);
+            $log.log('expectation: altered and end result should have '
+              + 'FEWER values than original');
+            // If original array has values no longer present
+            // in updated array, remove them
+            angular.forEach(originalSeenIds, function(id) {
+              if (alteredSeenIds.indexOf(id) == -1) {
+                originalSeenIds.splice(id, 1);
+              }
+            });
+          } else if (action === 'dismiss') {
+            $log.log('action is dismiss');
+            $log.log('original:', originalSeenIds);
+            $log.log('altered:', alteredSeenIds);
+            $log.log('expectation: altered and end result should have '
+              + 'MORE values than original');
+            // Add any IDs in the updated array to the original array
+            angular.forEach(alteredSeenIds, function(id) {
+              if (originalSeenIds.indexOf(id) == -1) {
+                originalSeenIds.push(id);
+              }
+            });
           }
-          // Add any IDs that don't already exist in the array
-          // of seen IDs
-          angular.forEach(ids, function(id) {
-            if (seenIds.indexOf(id) === -1) {
-              seenIds.push(id);
-            }
-          });
-          $log.log('after cycling through arrays, seenIds now has:', seenIds);
-          return keyValueService.setValue(KV_KEYS.VIEWED_MESSAGE_IDS, seenIds)
+          $log.log('after cycling through arrays, originalSeenIds now has:',
+            originalSeenIds);
+          return keyValueService.setValue(KV_KEYS.VIEWED_MESSAGE_IDS,
+            originalSeenIds)
             .then(function() {
               $log.log('[Set Messages Seen]: successfully set values '
-                + 'in k/v store', seenIds);
-              return seenIds;
+                + 'in k/v store', originalSeenIds);
+              return originalSeenIds;
             })
             .catch(function(error) {
               $log.warn('Problem setting seen message IDs in storage');

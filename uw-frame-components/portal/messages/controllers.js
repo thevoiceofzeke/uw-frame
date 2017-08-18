@@ -119,6 +119,7 @@ define(['angular'], function(angular) {
         var allNotifications = [];
         var separatedNotifications = {};
         var dismissedNotificationIds = [];
+        var allSeenMessageIds = [];
 
         // Promise to get seen message IDs
         var promiseSeenMessageIds = {
@@ -173,6 +174,9 @@ define(['angular'], function(angular) {
         var getSeenMessageIdsSuccess = function(result) {
           if (result.seenMessageIds && angular.isArray(result.seenMessageIds)
             && result.seenMessageIds.length > 0) {
+            // Save all seenMessageIds for later
+            allSeenMessageIds = result.seenMessageIds;
+
             // Separate seen and unseen
             separatedNotifications = $filter('filterSeenAndUnseen')(
               allNotifications,
@@ -272,7 +276,8 @@ define(['angular'], function(angular) {
 
           // Call service to save changes if k/v store enabled
           if (SERVICE_LOC.kvURL) {
-            messagesService.setMessagesSeen(dismissedNotificationIds)
+            messagesService.setMessagesSeen(allSeenMessageIds,
+              dismissedNotificationIds, 'dismiss')
               .then(function(result) {
                 $log.log('[Dismiss Notification]: '
                   + 'Successfully set messages seen:', result);
@@ -312,7 +317,8 @@ define(['angular'], function(angular) {
           }
           // Call service to save changes if k/v store enabled
           if (SERVICE_LOC.kvURL) {
-            messagesService.setMessagesSeen(dismissedNotificationIds)
+            messagesService.setMessagesSeen(allSeenMessageIds,
+              dismissedNotificationIds, 'restore')
               .then(function(result) {
                 $log.log('[Restore Notification]: '
                   + 'Successfully set messages seen:', result);
