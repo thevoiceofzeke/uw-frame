@@ -53,13 +53,6 @@ define(['angular', 'require'], function(angular, require) {
     };
   })
 
-  .directive('siteFooter', function() {
-      return {
-        restrict: 'E',
-        templateUrl: require.toUrl('./partials/footer.html'),
-      };
-    })
-
   .directive('featuresModalTemplate', function() {
       return {
           restrict: 'E',

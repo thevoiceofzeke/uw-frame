@@ -136,58 +136,7 @@ define(['angular', 'require'], function(angular, require) {
       })
 
     /**
-     * Directive to render the div with the "app-header" class.
-     * Supports 3 attributes:
-     *
-     * <ol>
-     * <li>app-title: displayed in an h1 child element</li>
-     * <li>app-icon: the font awesome icon you want (e.g.: fa-google) </li>
-     * <li>app-action-link-*;
-     *    url: the url you want, if not set action link hides.
-     *    icon: the icon you want for action, default fa-plus.
-     *    text: the text, default "add to home".</li>
-     * <li>app-add-to-home: Replaces action link url
-     *    with a function call to add to portal home</li>
-     * <li>app-option-template :
-     *    The name of the template you want your option drop
-     *    down to use. if not set, option drop down hidden.</li>
-     * <li>app-fname :
-     *    The functional name of the application,
-     *    if not provided it'll use NAMES.fname</li>
-
-     * </ol>
-     *
-     * See ./partials/app-header.html.
-     */
-    .directive('appHeader', function() {
-      return {
-        restrict: 'E',
-        scope: {
-          title: '@appTitle',
-          icon: '@appIcon',
-          fname: '@appFname',
-          showAddToHome: '@appShowAddToHome',
-        },
-        templateUrl: require.toUrl('./partials/app-header.html'),
-      };
-    })
-
-    .directive('appHeaderTwoWayBind', function() {
-      return {
-        restrict: 'E',
-        scope: {
-          title: '=appTitle',
-          icon: '=appIcon',
-          fname: '=appFname',
-          showAddToHome: '=appShowAddToHome',
-        },
-        templateUrl: require.toUrl('./partials/app-header.html'),
-      };
-    })
-
-    /**
     <frame-page> is a directive that is your typical page. Header, body.
-    The header items are routed to the <app-header> (see above)
     The body of the tag is then the body of the application
     Optional: whiteBackground :
       Adds in classes that do a white background with a border
@@ -198,10 +147,6 @@ define(['angular', 'require'], function(angular, require) {
           templateUrl: require.toUrl('./partials/frame-page.html'),
           transclude: true,
           scope: {
-            appTitle: '@appTitle',
-            appIcon: '@appIcon',
-            appFname: '=appFname',
-            appShowAddToHome: '=appShowAddToHome',
             whiteBackground: '=',
           },
           link: function(scope) {

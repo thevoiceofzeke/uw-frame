@@ -234,12 +234,5 @@ define(['angular', 'require'], function(angular, require) {
       };
 
       init();
-  }])
-
-  /* Footer */
-  .controller('PortalFooterController', ['$scope', 'FOOTER_URLS',
-    function($scope, FOOTER_URLS) {
-      $scope.date = new Date();
-      $scope.FOOTER_URLS = FOOTER_URLS;
   }]);
 });
