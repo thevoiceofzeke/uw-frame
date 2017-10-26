@@ -17,39 +17,13 @@
  * under the License.
  */
 
-/* Portlet and Frame Content Styling */
-
-.my-uw-body {
-  min-height: 100vh;
-  display: flex;
-
-  .page-content {
-    background-color: @grayscale4;
-    transition: padding 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    margin: 60px 0 0;
-    flex: auto;
-    display: flex;
-    flex-direction: column;
-
-    .white-page {
-      background-color: @white;
-    }
-
-    .region-main {
-      position: relative;
-      flex: auto;
-      height: 100%;
-    }
-
-    @media (max-width: @xs) {
-      margin-top: 56px;
-      height: auto;
-    }
-  }
-}
-
 /* Frame page styles for on-page side navigation */
 frame-page {
+  margin-top: 56px;
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+
   .wrapper__frame-page {
     height: 100%;
     display: flex;
@@ -61,6 +35,10 @@ frame-page {
       flex-direction: row;
       align-items: flex-start;
       justify-content: center;
+
+      .white-page {
+        background-color: @white;
+      }
     }
   }
 }
