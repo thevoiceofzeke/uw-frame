@@ -59,5 +59,8 @@
   <md-divider></md-divider>
   <div class="links-separated">
     <a ng-repeat="link in vm.footerLinks" ng-href="{{ link.url }}" target="{{ link.target }}" rel="noopener noreferrer">{{ link.title }}</a>
+    <div class="main-menu__footer" ng-controller="SessionCheckController as sessionCheckCtrl">
+      <span>© {{ sessionCheckCtrl.date | date:'yyyy'}}, Board of Regents of the <a href="http://www.wisconsin.edu/" target="_blank" rel='noopener noreferrer'>University of Wisconsin System</a></span>
+    </div>
   </div>
 </md-sidenav>

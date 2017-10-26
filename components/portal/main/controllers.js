@@ -110,6 +110,7 @@ define(['angular', 'require'], function(angular, require) {
     vm.username = '?';
     vm.campusId = '';
     vm.firstLetter = '?';
+    vm.date = new Date();
     vm.optAvatar = $sessionStorage.optAvatar;
     vm.profileUrl = ($sessionStorage.portal.theme
       && $sessionStorage.portal.theme.profileUrl) ?

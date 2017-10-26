@@ -18,49 +18,44 @@
     under the License.
 
 -->
-<frame-page app-title="User Settings"
-            app-icon="fa-gears"
-            white-background="true"
-            class="user-settings-page">
-  <md-content layout-padding>
-    <div layout="column">
-      <p ng-hide="kvEnabled">No settings for you to set at this time.</p>
-      <h4 class="md-subhead" ng-if="kvEnabled">Reset Zone<br>
-        <small>Reset various features to their default states.</small>
-      </h4>
-      <div ng-if="kvEnabled" layout="column" layout-align="center start">
-        <!-- RESET MESSAGES -->
-        <div layout-xs="column" layout-align-xs="center start" layout="row" layout-align="start center">
-          <md-button class="md-primary md-raised"
-                     ng-click="resetMessages()"
-                     aria-label="reset seen announcements and notifications">
-            Reset {{ portal.theme.title }} messages
-            <i class="fa fa-spin fa-circle-o" ng-if="loadingResetMessages"></i>
-          </md-button>
-          <small>Click to see previously-dismissed notifications, mascot announcements, and popup announcements.</small>
-        </div>
-        <!-- RESET LAYOUT -->
-        <div layout-xs="column" layout-align-xs="center start"  layout="row" layout-align="start center" ng-if="MISC_URLS.resetLayoutURL">
-          <md-button class="md-warn md-raised"
-                     ng-href="{{MISC_URLS.resetLayoutURL}}"
-                     aria-label="reset layout">
-            Reset layout
-          </md-button>
-          <small>Click to reset your portal layout.</small>
-        </div>
+<md-content layout-padding>
+  <div layout="column">
+    <p ng-hide="kvEnabled">No settings for you to set at this time.</p>
+    <h4 class="md-subhead" ng-if="kvEnabled">Reset Zone<br>
+      <small>Reset various features to their default states.</small>
+    </h4>
+    <div ng-if="kvEnabled" layout="column" layout-align="center start">
+      <!-- RESET MESSAGES -->
+      <div layout-xs="column" layout-align-xs="center start" layout="row" layout-align="start center">
+        <md-button class="md-primary md-raised"
+                   ng-click="resetMessages()"
+                   aria-label="reset seen announcements and notifications">
+          Reset {{ portal.theme.title }} messages
+          <i class="fa fa-spin fa-circle-o" ng-if="loadingResetMessages"></i>
+        </md-button>
+        <small>Click to see previously-dismissed notifications, mascot announcements, and popup announcements.</small>
       </div>
-      <div ng-show="optAvatar" layout="column" layout-gt-xs="row" layout-align="start center">
-          <md-button class="md-accent md-raised" layout-align-xs="center start"   ng-click="avatarOptOut()">
-            Do Not Use My Photo
-          </md-button>
-          <small>Requires page refresh to take effect.</small>
-        </div>
-      <div ng-show="!optAvatar" layout-align-xs="center start" layout="column" layout-align="start center" layout-gt-xs="row">
-          <md-button class="md-accent md-raised" ng-click="avatarOptIn()">
-            Use My Photo
-          </md-button>
-          <small>Requires page refresh to take effect.</small>
-        </div>
+      <!-- RESET LAYOUT -->
+      <div layout-xs="column" layout-align-xs="center start"  layout="row" layout-align="start center" ng-if="MISC_URLS.resetLayoutURL">
+        <md-button class="md-warn md-raised"
+                   ng-href="{{MISC_URLS.resetLayoutURL}}"
+                   aria-label="reset layout">
+          Reset layout
+        </md-button>
+        <small>Click to reset your portal layout.</small>
+      </div>
     </div>
-  </md-content>
-</frame-page>
+    <div ng-show="optAvatar" layout="column" layout-gt-xs="row" layout-align="start center">
+      <md-button class="md-accent md-raised" layout-align-xs="center start"   ng-click="avatarOptOut()">
+        Do Not Use My Photo
+      </md-button>
+      <small>Requires page refresh to take effect.</small>
+    </div>
+    <div ng-show="!optAvatar" layout-align-xs="center start" layout="column" layout-align="start center" layout-gt-xs="row">
+      <md-button class="md-accent md-raised" ng-click="avatarOptIn()">
+        Use My Photo
+      </md-button>
+      <small>Requires page refresh to take effect.</small>
+    </div>
+  </div>
+</md-content>
