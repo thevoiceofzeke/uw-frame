@@ -163,19 +163,6 @@ define(['angular', 'require'], function(angular, require) {
       return {
         restrict: 'E',
         scope: {
-          title: '@appTitle',
-          icon: '@appIcon',
-          fname: '@appFname',
-          showAddToHome: '@appShowAddToHome',
-        },
-        templateUrl: require.toUrl('./partials/app-header.html'),
-      };
-    })
-
-    .directive('appHeaderTwoWayBind', function() {
-      return {
-        restrict: 'E',
-        scope: {
           title: '=appTitle',
           icon: '=appIcon',
           fname: '=appFname',
