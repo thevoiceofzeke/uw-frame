@@ -185,8 +185,8 @@ define(['angular', 'require'], function(angular, require) {
           templateUrl: require.toUrl('./partials/frame-page.html'),
           transclude: true,
           scope: {
-            appTitle: '@appTitle',
-            appIcon: '@appIcon',
+            appTitle: '=appTitle',
+            appIcon: '=appIcon',
             appFname: '=appFname',
             appShowAddToHome: '=appShowAddToHome',
             whiteBackground: '=',
