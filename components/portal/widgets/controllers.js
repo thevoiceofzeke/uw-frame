@@ -309,9 +309,6 @@ define(['angular', 'moment'], function(angular, moment) {
           })
           .catch(function(error) {
             // If the service couldn't get data, display error messages
-            $log.warn('Couldn\'t get rss as JSON');
-            $log.error(error);
-
             $scope.error = true;
             $scope.isEmpty = true;
             $scope.loading = false;

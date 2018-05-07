@@ -157,12 +157,17 @@ define(['angular'], function(angular) {
      * @return {*}
      */
     var getRssAsJson = function(url) {
+      console.log('getting rss as json from url: ' + url);
       return $http.get(url, {cache: true})
         .then(function(result) {
+          //
+          console.log('successfully got rss as json');
+          console.log(result);
           return result.data;
         })
         .catch(function(error) {
-          $log.error('Couldn\'t get rss as JSON: ' + error);
+          $log.error('Couldn\'t get rss as JSON: ');
+          $log.error(error)
         });
     };
 
