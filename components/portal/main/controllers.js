@@ -54,6 +54,9 @@ define(['angular', 'require'], function(angular, require) {
         mainService.computeWindowTitle(pageTitle, appTitle, portalTitle);
 
       $document[0].title = windowTitle;
+
+      // If we're not in the portal home app, set app title (if available)
+      NAMES.appTitle = appTitle === portalTitle ? '' : appTitle;
     }
 
     // =====functions ======

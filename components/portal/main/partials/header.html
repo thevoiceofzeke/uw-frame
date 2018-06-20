@@ -18,23 +18,31 @@
     under the License.
 
 -->
+<myuw-app-bar theme-name="{{ portal.theme.title }}"
+              theme-url="{{ MISC_URLS.rootURL }}"
+              app-name="{{ NAMES.appTitle }}"
+              app-url=""
+              ng-controller="MessagesController">
+  <!-- MAIN MENU TOGGLE -->
+  <md-button slot="myuw-navigation"
+             class="menu-toggle"
+             ng-controller="MenuToggleController as vm"
+             ng-click="vm.showMainMenu()"
+             ng-class="{ 'menu-margin' : vm.isMenuConfigured }"
+             ng-show="vm.isMenuConfigured"
+             ng-cloak>
+    <md-icon>menu</md-icon>
+    <md-tooltip md-direction="bottom" md-delay="500" md-autohide class="top-bar-tooltip">Menu</md-tooltip>
+    <notifications-bell mode="mobile-bell" ng-if="!GuestMode" hide-gt-xs></notifications-bell>
+  </md-button>
+
+</myuw-app-bar>
+
 <md-toolbar md-scroll-shrink class="md-primary" tabindex="0" ng-controller="MessagesController">
   <notifications-bell mode="priority" class="priority-gt-xs" hide-xs></notifications-bell>
   <span ng-controller="AnnouncementsController" controllerAs="vm"></span>
   <div class="md-toolbar-tools"  role="banner">
     <div layout="row" flex-gt-xs="30" flex-xs="40" layout-align="start center">
-      <!-- MAIN MENU TOGGLE -->
-      <md-button class="menu-toggle"
-                 ng-controller="MenuToggleController as vm"
-                 ng-click="vm.showMainMenu()"
-                 ng-class="{ 'menu-margin' : vm.isMenuConfigured }"
-                 ng-show="vm.isMenuConfigured"
-                 ng-cloak>
-        <md-icon>menu</md-icon>
-        <md-tooltip md-direction="bottom" md-delay="500" md-autohide class="top-bar-tooltip">Menu</md-tooltip>
-        <notifications-bell mode="mobile-bell" ng-if="!GuestMode" hide-gt-xs></notifications-bell>
-      </md-button>
-
       <!-- PORTAL TITLE AND APP TITLE -->
       <!-- If in theme home -->
       <a ng-if="portal.theme.title === NAMES.title"
