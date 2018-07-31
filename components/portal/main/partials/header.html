@@ -33,7 +33,7 @@
              ng-cloak>
     <md-icon>menu</md-icon>
     <md-tooltip md-direction="bottom" md-delay="500" md-autohide class="top-bar-tooltip">Menu</md-tooltip>
-    <notifications-bell mode="mobile-bell" ng-if="!GuestMode" hide-gt-xs></notifications-bell>
+    <notifications-bell mode="mobile-bell" ng-if="!guestMode" hide-gt-xs></notifications-bell>
   </md-button>
 
   <!-- SEARCH BAR (XS-ONLY) -->
@@ -46,7 +46,7 @@
     <!--<search ng-show="APP_FLAGS.showSearch"></search>-->
   <!--</div>-->
 
-  <notifications-bell slot="myuw-notifications" mode="bell" ng-if="!GuestMode"></notifications-bell>
+  <notifications-bell slot="myuw-notifications" mode="bell" ng-if="!guestMode"></notifications-bell>
   <username slot="myuw-profile"></username>
 
 </myuw-app-bar>
