@@ -18,11 +18,11 @@
     under the License.
 
 -->
+<notifications-bell mode="priority" class="priority-gt-xs" ng-if="!guestMode" hide-xs></notifications-bell>
 <myuw-app-bar theme-name="{{ portal.theme.title }}"
               theme-url="{{ MISC_URLS.rootURL }}"
               app-name="{{ NAMES.appTitle }}"
-              app-url=""
-              ng-controller="MessagesController">
+              app-url="">
   <!-- MAIN MENU TOGGLE -->
   <md-button slot="myuw-navigation"
              class="menu-toggle"

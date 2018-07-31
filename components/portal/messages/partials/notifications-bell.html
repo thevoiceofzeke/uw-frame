@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<div class="notifications" ng-show="vm.showMessagesFeatures">
+<div class="notifications" ng-class="{ 'animate-hide': vm.priorityNotifications.length === 0 || vm.isNotificationsPage() }" ng-show="vm.showMessagesFeatures">
 
   <!-- MOBILE BELL -->
   <div class="notification-badge notification-badge-mobile" aria-label="{{ status }}"
@@ -108,7 +108,6 @@
 
   <!-- PRIORITY NOTIFICATIONS (FIXED-TOP) -->
   <div class="priority-notifications"
-       ng-class="{ 'animate-hide': vm.priorityNotifications.length === 0 || vm.isNotificationsPage() }"
        ng-if="directiveMode === 'priority' && !vm.isNotificationsPage()">
     <div class="priority-bubble"
          ng-if="vm.priorityNotifications.length == 1"

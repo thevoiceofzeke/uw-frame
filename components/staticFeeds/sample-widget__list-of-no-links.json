@@ -18,9 +18,6 @@
         "getLinksURL": "true",
         "launchText": "View widget JSON"
       },
-      "widgetExternalMessageUrl": "/staticFeeds/sample-widget_message.json",
-      "widgetExtneralMessageTextObjectLocation": ["result", 0, "message"],
-      "widgetExternalMessageLearnMoreUrl": ["learnMoreUrl"],
       "staticContent": "<div><p>Static content goes here.</p></div>",
       "altMaxUrl": true,
       "renderOnWeb": false
