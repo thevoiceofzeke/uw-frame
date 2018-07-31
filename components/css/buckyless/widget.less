@@ -31,6 +31,7 @@
     height: 60px;
     line-height: 1.1;
     align-items: center;
+    padding: 0 40px;
 
     .md-title {
       font-size: 18px;
@@ -230,7 +231,7 @@
 
         circle-button {
           width: 120px;
-          height: 88px;
+          height: 96px;
           text-align: center;
         }
       }
@@ -280,6 +281,7 @@
             width: 80%;
             font-size: 12px;
             white-space: nowrap;
+            overflow: hidden;
           }
 
           div.headline.nodate {
@@ -497,23 +499,21 @@
   .widget-action {
     position: absolute;
     display: inline;
-    opacity: 0;
     top: 0;
+    right: 0;
     margin: 0;
-    transition: @transition-opacity;
     z-index: @widget-depth-1;
 
-    &.widget-info {
-      left: 0;
+    .md-button {
+      margin: 6px 0;
+
+      .material-icons {
+        font-size: 18px;
+        line-height: 24px;
+      }
     }
 
-    .material-icons {
-      font-size: 18px;
-    }
-  }
-
-  &:hover {
-    .widget-action {
+    &:focus {
       opacity: 1;
     }
   }

@@ -82,7 +82,7 @@ define(['angular', 'require'], function(angular, require) {
 
       // class for ng-view
       $scope.routeClass = 'route' +
-        angular.lowercase($location.path().replace(new RegExp('/', 'g'), '-'));
+        $location.path().replace(new RegExp('/', 'g'), '-').toLowerCase();
     };
 
     $scope.resetAll = function() {
@@ -127,6 +127,7 @@ define(['angular', 'require'], function(angular, require) {
       && $sessionStorage.portal.theme.profileUrl) ?
       $sessionStorage.portal.theme.profileUrl : '';
     vm.campusIdAttribute = APP_FLAGS.campusIdAttribute;
+    vm.guestMode = true;
 
     // Tell username menu which element to focus upon opening (accessibility)
     if (APP_FLAGS.showUserSettingsPage) {
@@ -164,10 +165,8 @@ define(['angular', 'require'], function(angular, require) {
       $log.warn('could not get user');
     });
 
-    // DEPRECATED
-    // Don't set GuestMode in rootScope. Remove in next major version.
     mainService.isGuest().then(function(result) {
-      return $rootScope.GuestMode = result;
+      return vm.guestMode = result;
     }).catch(function(err) {
       $log.warn('could not check guest');
     });
