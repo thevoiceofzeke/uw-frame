@@ -27,11 +27,15 @@ define(['require'], function(require) {
       },
 
       serverError: {
-          templateUrl: require.toUrl('./partials/server-error.html'),
+        templateUrl: require.toUrl('./partials/server-error.html'),
       },
 
       fileNotFound: {
         templateUrl: require.toUrl('./partials/file-not-found.html'),
+      },
+
+      loggedOut: {
+        templateUrl: require.toUrl('./partials/logged-out.html'),
       },
     };
 });

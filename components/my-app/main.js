@@ -40,6 +40,7 @@ define(['angular',
         .when('/session-info', help.sessionInfo)
         .when('/access-denied', main.accessDenied)
         .when('/server-error', main.serverError)
+        .when('/logged-out', main.loggedOut)
         .when('/', main.main)
         .otherwise('/');
     }]);
